@@ -1,27 +1,47 @@
 package prozesuAnitzekoProgramazioa_1;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 public class BatuketaAbiarazlea {
-	public Process abiaraziBatuketa(Integer n1, Integer n2) {
-		String klasea = "prozesuAnitzekoProgramazioa_1.Batuketa";
-		ProcessBuilder pb;
-		Process prozesua = null;
-		try {
-			pb = new ProcessBuilder("java", klasea, n1.toString(), n2.toString());           
+    public static void main(String[] args) {
+        try {
+            // Specify the classpath (e.g., "bin" if using Eclipse, adjust accordingly)
+            String classpath = "bin";  // Adjust this if necessary (e.g., `.` if in the same directory)
 
-            prozesua = pb.start();
-            
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return prozesua;
-	}
+            // Batuketa klasea abiarazi
+            ProcessBuilder processBuilder = new ProcessBuilder(
+                    "java", "-cp", classpath, "prozesuAnitzekoProgramazioa_1.Batuketa", "6", "7");
 
-	public static void main(String[] args) {
-		BatuketaAbiarazlea ba = new BatuketaAbiarazlea();
-		ba.abiaraziBatuketa(1, 50);
-		ba.abiaraziBatuketa(51, 100);
-		
-		System.out.println("Main Bukatuta");
-	}
+            // Start the process
+            Process process = processBuilder.start();
+
+            // Capture the standard output (stdout) from the process
+            BufferedReader stdOutput = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            // Capture the error output (stderr) from the process
+            BufferedReader stdError = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+
+            String line;
+
+            // Read and print the standard output (if any)
+            System.out.println("Prozesuaren mezua:");
+            while ((line = stdOutput.readLine()) != null) {
+                System.out.println(line);
+            }
+
+            // Read and print the error output (if any)
+            System.out.println("Errore mezua (baldin badago):");
+            while ((line = stdError.readLine()) != null) {
+                System.out.println(line);
+            }
+
+            // Wait for the process to finish
+            int exitCode = process.waitFor();
+            System.out.println("\nProzesua bukatu da irteera kode honekin: " + exitCode);
+
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 }
