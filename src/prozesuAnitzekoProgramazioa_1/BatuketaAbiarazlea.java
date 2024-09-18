@@ -1,47 +1,52 @@
 package prozesuAnitzekoProgramazioa_1;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
 public class BatuketaAbiarazlea {
-    public static void main(String[] args) {
-        try {
-            // Specify the classpath (e.g., "bin" if using Eclipse, adjust accordingly)
-            String classpath = "bin";  // Adjust this if necessary (e.g., `.` if in the same directory)
+	public static void main(String[] args) {
+		try {
+			// Zehaztu classpath-a ("bin" Eclipse erabiltzean adibidez, moldatu beharrrezkoa bada)
+			String classpath = "bin"; // `.` karpeta berdinean bada
 
-            // Batuketa klasea abiarazi
-            ProcessBuilder processBuilder = new ProcessBuilder(
-                    "java", "-cp", classpath, "prozesuAnitzekoProgramazioa_1.Batuketa", "6", "7");
+			// Batuketa klasea abiarazi, paketea zehaztuz
+			ProcessBuilder processBuilder_1 = new ProcessBuilder("java", "-cp", classpath,
+					"prozesuAnitzekoProgramazioa_1.Batuketa", "6", "10");
 
-            // Start the process
-            Process process = processBuilder.start();
+			// Sarrera eta irteera jarauntsi (heredar)
+			processBuilder_1.inheritIO();
 
-            // Capture the standard output (stdout) from the process
-            BufferedReader stdOutput = new BufferedReader(new InputStreamReader(process.getInputStream()));
-            // Capture the error output (stderr) from the process
-            BufferedReader stdError = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+			// Prozesua abiarazi
+			Process process_1 = processBuilder_1.start();
 
-            String line;
+			// Itxaron prozesua bukatu arte
+			int exitCode_1 = process_1.waitFor();
+			System.out.println("\n 1 Prozesua bukatu da irteera kode honekin: " + exitCode_1);
 
-            // Read and print the standard output (if any)
-            System.out.println("Prozesuaren mezua:");
-            while ((line = stdOutput.readLine()) != null) {
-                System.out.println(line);
-            }
-
-            // Read and print the error output (if any)
-            System.out.println("Errore mezua (baldin badago):");
-            while ((line = stdError.readLine()) != null) {
-                System.out.println(line);
-            }
-
-            // Wait for the process to finish
-            int exitCode = process.waitFor();
-            System.out.println("\nProzesua bukatu da irteera kode honekin: " + exitCode);
-
-        } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
+		} catch (IOException | InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
 }
+
+/*
+// Irteera estandarra kapturatu
+BufferedReader stdOutput = new BufferedReader(new InputStreamReader(process.getInputStream()));
+// Erroreen irteera kapturatu
+BufferedReader stdError = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+
+String line;
+
+// Irakurri eta idatzi irteera estandarra (baldin badago)
+System.out.println("Prozesuaren mezua (baldin badago):");
+while ((line = stdOutput.readLine()) != null) {
+	System.out.println(line);
+}
+// Lerroa hutsik
+System.out.println();
+
+// Irakurri eta idatzi errore irteera (baldin badago)
+System.out.println("Errore mezua (baldin badago):");
+while ((line = stdError.readLine()) != null) {
+	System.out.println(line);
+}
+*/
