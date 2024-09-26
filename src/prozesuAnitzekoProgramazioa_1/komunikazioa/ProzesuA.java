@@ -1,21 +1,23 @@
 package prozesuAnitzekoProgramazioa_1.komunikazioa;
 
 public class ProzesuA {
-    public static void main(String[] args) {
-        try {
-            // Mensaje al usuario (salida estándar)
-            System.out.println("Proceso A: Realizando una operación...");
+	public static void main(String[] args) {
+		try {
+			
+			System.out.println("A Prozesua: Eragiketak egiten...");
 
-            // Realiza una operación (por ejemplo, suma de dos números)
-            int result = 5 + 3;
-            Thread.sleep(2000);
-            // Mensaje al usuario (salida estándar)
-            System.out.println("Proceso A: El resultado es " + result);
+			// Eragiketak, zereginak egin
+			int emaitza = 5 + 3;
+			Thread.sleep(2000);
+			
+			// Erabiltzaileari mezua (irteera estandarra, SYSTEM.OUT)
+			System.out.println("A Prozesua: Emaitza da " + emaitza);
 
-            // Enviar el resultado al Proceso Principal (usando System.err para separarlo de los mensajes)
-            System.err.println(result);  // System.err se utiliza solo para pasar el resultado al Proceso Principal
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+			// Emaitza Prozesu Nagusira bidali (SYSTEM.ERR erabiliz mezuetatik bereizteko)
+			System.err.println(emaitza); // System.err bakarrik erabiliko da emaitza Prozesu Nagusiari pasatzeko
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }

@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.lang.ProcessBuilder.Redirect;
-
+/**
+ * Klase honek egingo duena da: A Prozesua abiaratu
+ */
 public class ProzesuNagusia {
 
     public static void main(String[] args) {
@@ -13,39 +15,43 @@ public class ProzesuNagusia {
             ProcessBuilder processBuilderA = new ProcessBuilder("java", "-cp", "bin", "prozesuAnitzekoProgramazioa_1.komunikazioa.ProzesuA");
             
             processBuilderA.inheritIO();
+            // Erroreen irteera (SYSTEM.ERR) erabiliko dugu subprozesuarekin komunikatzeko (emaitza irakurtzeko)
             processBuilderA.redirectError(Redirect.PIPE);
-            // Iniciar el proceso A
+            
+            // A Prozesua abiarazi
             Process processA = processBuilderA.start();
-            System.out.println("NAGUSIA: Comienza Proceso A.");
+            System.out.println("NAGUSIA: A Prozesua abiarazi da.");
        
-            // Crear el proceso B (que recibe el resultado)
+            // B Prozesua sortu (emaitzA jasoko duena)
             ProcessBuilder processBuilderB = new ProcessBuilder("java", "-cp", "bin", "prozesuAnitzekoProgramazioa_1.komunikazioa.ProzesuB");
 
             processBuilderB.inheritIO();
+            // B Prozesuaren sarrera estandarrarekin gu komunikatuko gara, Prozesu Nagusia, emaitza bidaltzeko
             processBuilderB.redirectInput(Redirect.PIPE);
-            // Iniciar el proceso B
+            
+            // B Prozesua abiarazi
             Process processB = processBuilderB.start();
-            System.out.println("NAGUSIA: Comienza Proceso B.");
+            System.out.println("NAGUSIA: B Prozesua abiarazi da.");
 
-            // Capturar el resultado (error stream) de Proceso A
+            // Emaitza jaso (getErrorStream) A Prozesutik
             BufferedReader errorAReader = new BufferedReader(new InputStreamReader(processA.getErrorStream()));
-            String resultA = errorAReader.readLine();  // Leer el resultado del error stream (solamente el resultado)
-            System.out.println("NAGUSIA: Resultado obtenido de Proceso A: " + resultA);
+            String resultA = errorAReader.readLine();
+            System.out.println("NAGUSIA: A Prozesutik lortu den emaitza: " + resultA);
 
-            // Esperar a que el Proceso A termine
+            // Itxaron A Prozesua amaitu arte
             int exitCodeA = processA.waitFor();
-            System.out.println("NAGUSIA: Proceso A terminó con código: " + exitCodeA);
+            System.out.println("NAGUSIA: A Prozesua bukatu da irteera kode honekin: " + exitCodeA);
 
-            // Pasar el resultado del Proceso A al Proceso B (a través de su entrada estándar)
+            // A Prozesutik lortu dugun emaitza B Prozesura pasatu (bere sarrera estandarraren bidez)
             OutputStream outputToProcessB = processB.getOutputStream();
-            outputToProcessB.write(resultA.getBytes());  // Escribir el resultado de A
-            outputToProcessB.write("\n".getBytes());  // Asegurarse de que se envíe un salto de línea
-            outputToProcessB.flush();  // Asegurarse de que el dato sea enviado
-            outputToProcessB.close();  // Cerrar la entrada de B para indicar que no habrá más datos
+            outputToProcessB.write(resultA.getBytes());  // A Prozesuaren emaitza idatzi
+            outputToProcessB.write("\n".getBytes());  // Lerro bukaera adierazten duen karakterea bidaltzen dela ziurtatu
+            outputToProcessB.flush();  // Ziurtatu datuak bidali direla
+            outputToProcessB.close();  // B Prozesuaren sarrera itxi datu gehiago ez direla egongo adierazteko
 
-            // Esperar a que el Proceso B termine
+            // Itxaron B Prozesua amaitu arte
             int exitCodeB = processB.waitFor();
-            System.out.println("NAGUSIA: Proceso B terminó con código: " + exitCodeB);
+            System.out.println("NAGUSIA: B Prozesua bukatu da irteera kode honekin: " + exitCodeB);
 
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();

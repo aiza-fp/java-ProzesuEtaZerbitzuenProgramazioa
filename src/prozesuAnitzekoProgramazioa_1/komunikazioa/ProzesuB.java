@@ -7,15 +7,17 @@ import java.io.InputStreamReader;
 public class ProzesuB {
     public static void main(String[] args) {
         try {
-            // Mensaje al usuario (salida estándar)
-            System.out.println("Proceso B: Esperando el resultado de Proceso A...");
+        	
+            // Erabiltzaileari mezua (irteera estandarra, SYSTEM.OUT)
+            System.out.println("B Prozesua: A Prozesuaren emaitza itxaroten...");
 
-            // Leer el resultado desde la entrada estándar (solo el resultado)
+            // Emaitza sarrera estandarretik irakurri (SYSTEM.IN)
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-            String result = reader.readLine();  // Leer el resultado de A
+            String emaitza = reader.readLine();  // Prozesu Nagusiak bidali dion emaitza irakurri
 
-            // Mostrar el resultado al usuario (salida estándar)
-            System.out.println("Proceso B: Recibí el resultado " + result);
+            // Erabiltzaileari mezua (irteera estandarra, SYSTEM.OUT)
+            System.out.println("B Prozesua: Jasotako emaitza: " + emaitza);
+            
         } catch (IOException e) {
             e.printStackTrace();
         }
