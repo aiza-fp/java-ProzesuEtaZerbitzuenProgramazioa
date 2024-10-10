@@ -5,10 +5,10 @@ package hariAnitzekoProgramazioa_2.hariakSortu_1;
 public class HariakSortu {
     public static void main(String[] args) {
 
-        Thread hilo1 = new ThreadHedatuz();
-        hilo1.start();
-        Thread hilo2 = new ThreadHedatuz();
-        hilo2.start();
+        Thread haria_1 = new ThreadHedatuz();
+        haria_1.start();
+        Thread haria_2 = new ThreadHedatuz();
+        haria_2.start();
 
         System.out.println("Nire izena " + Thread.currentThread().getName()
                 + " da, egoera: " + Thread.currentThread().getState());

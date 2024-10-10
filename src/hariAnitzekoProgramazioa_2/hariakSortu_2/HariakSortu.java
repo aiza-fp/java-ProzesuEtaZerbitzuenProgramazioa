@@ -7,9 +7,9 @@ public class HariakSortu {
 
 	public static void main(String[] args) {
 
-		Runnable task = new RunnableInplementatuz();
-		Thread hilo = new Thread(task);
-		hilo.start();
+		Runnable zeregina = new RunnableInplementatuz();
+		Thread haria = new Thread(zeregina);
+		haria.start();
 
 		System.out.println(
 				"Nire izena " + Thread.currentThread().getName() + " da, egoera: " + Thread.currentThread().getState());
