@@ -8,9 +8,9 @@ public class HariakItxaron {
 		
 		int haria_1_denbora_segundutan = 10;
 		int haria_2_denbora_segundutan = 25;
-		int programa_nagusia_haria_2_itxaron_segundutan = 8;
+		int programa_nagusia_haria_2_itxaron_segundutan = 100;
 		
-		// 4 segundu iraungo dituen haria
+		// 1 haria
 		Thread haria_1 = new Thread(() -> {
 			System.out.println(Thread.currentThread().getName() + " haria hasi da, " + haria_1_denbora_segundutan + " segunduko iraupena.");
 			try {
@@ -21,9 +21,10 @@ public class HariakItxaron {
 			}
 			System.out.println(Thread.currentThread().getName() + " haria bukatu da.");
 			});
+		haria_1.setName("1 HARIA");
 		haria_1.start();
 		
-		// 10 segundu iraungo dituen haria
+		// 2 haria
 		Thread haria_2 = new Thread(() -> {
 			System.out.println(Thread.currentThread().getName() + " haria hasi da, " + haria_2_denbora_segundutan + " segunduko iraupena.");
 			try {
@@ -34,6 +35,7 @@ public class HariakItxaron {
 			}
 			System.out.println(Thread.currentThread().getName() + " haria bukatu da.");
 			});
+		haria_2.setName("2 HARIA");
 		haria_2.start();
 
 		System.out.println("Programa nagusia, " + haria_1.getName() + " haria bukatu arte itxaroten.");
