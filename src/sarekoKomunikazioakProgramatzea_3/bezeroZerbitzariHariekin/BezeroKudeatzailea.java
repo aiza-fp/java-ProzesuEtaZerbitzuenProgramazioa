@@ -14,7 +14,7 @@ class BezeroKudeatzailea implements Runnable {
     @Override
     public void run() {
         try {
-            System.out.println("Bezeroa konektatu da: " + socket.getInetAddress());
+            System.out.println("Bezeroa konektatu da: " + socket.getInetAddress().getHostAddress());
 
             // Sortu sarrera eta irteera Stream-ak
             BufferedReader sarrera = new BufferedReader(

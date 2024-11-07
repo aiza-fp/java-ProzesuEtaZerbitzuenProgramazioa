@@ -7,7 +7,8 @@ import java.io.PrintWriter;
 import java.net.Socket;
 /**
  * Klase hau makina lokalean 5000 portuan entzuten dagoen zerbitzari batera
- * konektatzen da, mezu bat bidaltzen dio eta erantzuna itxaroten du.
+ * konektatzen da 'bezeroKopurua' aldiz, mezu bat bidaltzen dio
+ * eta erantzuna itxaroten du.
  */
 public class Bezeroa {
     public static void main(String[] args) {
