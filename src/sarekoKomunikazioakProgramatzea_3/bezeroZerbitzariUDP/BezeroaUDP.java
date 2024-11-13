@@ -9,6 +9,8 @@ public class BezeroaUDP {
         try (DatagramSocket socket = new DatagramSocket()) {
             InetAddress address = InetAddress.getByName("localhost");
             
+            System.out.println("Bezeroa abiarazita!");
+            
             // Mezua bidali
             String mezua = "Kaixo UDP zerbitzaria!";
             byte[] bidaltzekoDatuak = mezua.getBytes();
@@ -19,6 +21,8 @@ public class BezeroaUDP {
                 9000
             );
             socket.send(bidaltzekoPaketea);
+            
+            System.out.println("Datagrama bidalita!");
 
             // Erantzuna jaso
             byte[] jasotzekoDatuak = new byte[1024];
