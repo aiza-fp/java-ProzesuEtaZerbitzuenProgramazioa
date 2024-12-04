@@ -1,6 +1,8 @@
 package hariAnitzekoProgramazioa_2.pipeline;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.PipedInputStream;
+import java.io.PipedOutputStream;
 
 public class PipelineAdibidea {
     public static void main(String[] args) {

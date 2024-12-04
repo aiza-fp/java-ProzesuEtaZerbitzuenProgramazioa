@@ -1,7 +1,11 @@
 package sarekoKomunikazioakProgramatzea_3.bezeroZerbitzari;
 
-import java.io.*;
-import java.net.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.ServerSocket;
+import java.net.Socket;
 /**
  * Klase honek zerbitzari bat jartzen du eskariak entzuten makinaren 5000 portuan
  */

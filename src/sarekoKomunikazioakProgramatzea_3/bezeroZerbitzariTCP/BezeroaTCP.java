@@ -1,7 +1,10 @@
 package sarekoKomunikazioakProgramatzea_3.bezeroZerbitzariTCP;
 
-import java.io.*;
-import java.net.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.Socket;
 /**
  * Klase hau makina lokalean 5000 portuan entzuten dagoen zerbitzari batera
  * konektatzen da, mezu bat bidaltzen dio eta erantzuna itxaroten du.
