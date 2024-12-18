@@ -12,57 +12,46 @@ import jakarta.mail.internet.MimeBodyPart;
 /**
  * IMAP (Internet Message Access Protocol) protokoloaren erabileraren adibidea.
  * 993 portuan eta ("mail.imap.starttls.enable", "true") adieraziz datuak modu
- * zifratuan bidali eta jasoko direla adierazten dugu, hau da, IMAPs erabiliko dugu.
+ * zifratuan bidali eta jasoko direla adierazten dugu, hau da, IMAPs erabiliko
+ * dugu.
  */
 public class IMAP {
-    public static void main(String[] args) {
-        String imapHost = "imap.gmail.com";
-        String username = "zure_email@gmail.com";
-        String password = "zure_pasahitza";
+	public static void main(String[] args) {
+		String imapHost = "imap.gmail.com";
+		String username = "ZURE GMAIL KORREOA";
+		String password = "ZURE KORREOKO APP PASAHITZA";
 
-        Properties properties = new Properties();
-        properties.put("mail.imap.host", imapHost);
-        properties.put("mail.imap.port", "993");
-        properties.put("mail.imap.starttls.enable", "true");
+		Properties properties = new Properties();
+		properties.put("mail.imap.host", imapHost);
+		properties.put("mail.imap.port", "993");
+		properties.put("mail.imap.starttls.enable", "true");
 
-        Session session = Session.getInstance(properties);
-        try {
-            Store store = session.getStore("imaps");
-            store.connect(imapHost, username, password);
+		Session session = Session.getInstance(properties);
+		try {
+			Store store = session.getStore("imaps");
+			store.connect(imapHost, username, password);
 
-            Folder inbox = store.getFolder("INBOX");
-            inbox.open(Folder.READ_ONLY);
+			Folder inbox = store.getFolder("INBOX");
+			inbox.open(Folder.READ_ONLY);
 
-            int totalMessages = inbox.getMessageCount();
-            System.out.println("Mezuak guztira: " + totalMessages);
-            
-            int numberOfMessagesToRetrieve = 5;
-            int start = Math.max(1, totalMessages - numberOfMessagesToRetrieve + 1);
-            
-            Message[] messages = inbox.getMessages(start, totalMessages);
-            System.out.println("Aurkitutako mezuak: " + messages.length);
+			int totalMessages = inbox.getMessageCount();
+			System.out.println("Mezuak guztira: " + totalMessages);
 
-            for (Message message : messages) {
-                System.out.println("Mezua: " + message.getSubject());
-                Object content = message.getContent();
-                
-                if (content instanceof String) {
-                    System.out.println("Edukia: " + content);
-                } else if (content instanceof Multipart) {
-                    Multipart multipart = (Multipart) content;
-                    for (int j = 0; j < multipart.getCount(); j++) {
-                        MimeBodyPart part = (MimeBodyPart) multipart.getBodyPart(j);
-                        if (part.isMimeType("text/plain")) {
-                            System.out.println("Edukia: " + part.getContent());
-                        }
-                    }
-                }
-            }
+			int numberOfMessagesToRetrieve = 5;
+			int start = Math.max(1, totalMessages - numberOfMessagesToRetrieve + 1);
 
-            inbox.close(false);
-            store.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+			Message[] messages = inbox.getMessages(start, totalMessages);
+			System.out.println("Aurkitutako mezuak: " + messages.length);
+
+			for (Message message : messages) {
+				System.out.println("Mezua: " + message.getSubject());
+				Object content = message.getContent();                
+			}
+
+			inbox.close(false);
+			store.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }
