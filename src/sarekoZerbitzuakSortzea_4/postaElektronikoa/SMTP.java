@@ -1,4 +1,4 @@
-package sarekoZerbitzuakSortzea_4.SMTP;
+package sarekoZerbitzuakSortzea_4.postaElektronikoa;
 
 import java.util.Properties;
 
@@ -11,12 +11,6 @@ import jakarta.mail.Transport;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
 /**
- * Liburutegi hauek deskargatu eta proiektuari gehitu:
- * 
- * https://repo1.maven.org/maven2/org/eclipse/angus/angus-mail/2.0.3/angus-mail-2.0.3.jar
- * https://repo1.maven.org/maven2/jakarta/mail/jakarta.mail-api/2.1.3/jakarta.mail-api-2.1.3.jar
- * https://repo1.maven.org/maven2/jakarta/activation/jakarta.activation-api/2.1.3/jakarta.activation-api-2.1.3.jar
- * 
  * Google kontu batean APP PASSWORD bat sortu:
  * 
  * https://myaccount.google.com/apppasswords
@@ -30,7 +24,7 @@ public class SMTP {
         String password = "ZURE PASAHITZ BEREZIA (APP PASSWORD)"; //ALDATU
 
         String toEmail = "NORAKO_KORREO_HELBIDEA"; //ALDATU
-        
+      
         String subject = "SMTP Test";
         String messageText = "Kaixo! Hau SMTP bidez bidalitako mezua da.";
 
