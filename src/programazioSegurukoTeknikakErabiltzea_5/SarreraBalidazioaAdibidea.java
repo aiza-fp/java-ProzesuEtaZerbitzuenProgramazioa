@@ -29,10 +29,10 @@ public class SarreraBalidazioaAdibidea {
 
     private static String testuaGarbitu(String testua) {
         // XSS erasoak ekiditeko karaktere bereziak ordezkatu
-        return testua.replaceAll("<", "&lt;")
+        return testua.replaceAll("&", "&amp;")
+        			.replaceAll("<", "&lt;")
                     .replaceAll(">", "&gt;")
                     .replaceAll("\"", "&quot;")
-                    .replaceAll("'", "&#x27;")
-                    .replaceAll("&", "&amp;");
+                    .replaceAll("'", "&#x27;");            
     }
 } 
