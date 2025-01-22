@@ -11,8 +11,10 @@ public class SocketSeguroaBezeroa {
     public static void main(String[] args) {
         // SSL propietateak ezarri
         System.setProperty("javax.net.ssl.trustStore", "client.truststore");
-        System.setProperty("javax.net.ssl.trustStorePassword", "pasahitza");
-
+        System.setProperty("javax.net.ssl.trustStorePassword", "pasahitzaClientTrustStore");
+        // Garrantzitsua: Produkzio inguruneetan, pasahitza ez litzateke kodean zuzenean idatzi behar,
+        //baizik eta konfigurazio fitxategi edo ingurune aldagai batetik hartu
+        
         try {
             SSLSocketFactory factory = (SSLSocketFactory) SSLSocketFactory.getDefault();
             SSLSocket socket = (SSLSocket) factory.createSocket("localhost", 9999);

@@ -12,7 +12,9 @@ public class SocketSeguroaZerbitzaria {
     public static void main(String[] args) {
         // SSL propietateak ezarri
         System.setProperty("javax.net.ssl.keyStore", "server.keystore");
-        System.setProperty("javax.net.ssl.keyStorePassword", "pasahitza");
+        System.setProperty("javax.net.ssl.keyStorePassword", "pasahitzaServerKeyStore");
+        // Garrantzitsua: Produkzio inguruneetan, pasahitza ez litzateke kodean zuzenean idatzi behar,
+        //baizik eta konfigurazio fitxategi edo ingurune aldagai batetik hartu
 
         try {
             SSLServerSocketFactory factory = (SSLServerSocketFactory) SSLServerSocketFactory.getDefault();
