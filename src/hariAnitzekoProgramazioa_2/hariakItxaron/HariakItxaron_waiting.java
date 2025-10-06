@@ -1,21 +1,20 @@
 package hariAnitzekoProgramazioa_2.hariakItxaron;
 
-import java.lang.Thread.State;
-
 /**
  * Nola ITXARON hari bat bukatu arte edo denbora bat itxaron eta jarraitu
  */
 public class HariakItxaron_waiting {
 
 	public static void main(String[] args) throws InterruptedException {
-		
+
 		Thread hariNagusia = Thread.currentThread();
-		
-		//  haria
+
+		// haria
 		Thread haria_1 = new Thread(() -> {
-			System.out.println(Thread.currentThread().getName() + " hasi da. Programa nagusiaren egoera egoera monitorizatzen segunduro.");
+			System.out.println(Thread.currentThread().getName()
+					+ " hasi da. Programa nagusiaren egoera egoera monitorizatzen segunduro.");
 			try {
-				for (int i=5; i>0; i--) {
+				for (int i = 5; i > 0; i--) {
 					System.out.println(hariNagusia.getName() + " hariaren egoera: " + hariNagusia.getState());
 					Thread.sleep(1000);
 				}
@@ -24,7 +23,7 @@ public class HariakItxaron_waiting {
 				e.printStackTrace();
 			}
 			System.out.println(Thread.currentThread().getName() + " haria bukatu da.");
-			});
+		});
 		haria_1.setName("HARIA");
 		haria_1.start();
 
@@ -34,7 +33,7 @@ public class HariakItxaron_waiting {
 		haria_1.join();
 
 		System.out.println("Programa nagusia, " + haria_1.getName() + " haria bukatu da");
-					
+
 		System.out.println("Programa nagusia bukatu da.");
 
 	}
