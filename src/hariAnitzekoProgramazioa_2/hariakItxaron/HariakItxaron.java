@@ -55,7 +55,7 @@ public class HariakItxaron {
 		if(State.TERMINATED.equals(haria_2.getState())) {
 			System.out.println("Haria 2 bukatuta.");			
 		}else {
-			System.out.println("Haria 2 oraindik exekutatzen");
+			System.out.println("Haria 2 oraindik exekutatzen. Egoera: " + haria_2.getState());
 		}
 			
 		System.out.println("Programa nagusia bukatu da.");
