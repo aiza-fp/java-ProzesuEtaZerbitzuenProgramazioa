@@ -265,6 +265,68 @@ public class SimpleFTPSClient {
     }
     
     /**
+     * Fitxategi bat igotzen du
+     */
+    public boolean storeFile(String remoteFile, InputStream inputStream) throws IOException {
+        // Pasibo modua aktibatu
+        DataConnectionInfo dataInfo = enterPassiveMode();
+        
+        // Datu konexioa sortu (kontrol konexioaren TLS saioa berrerabiltzeko)
+        SSLSocket dataSocket = createDataConnection(dataInfo.host, dataInfo.port);
+        
+        // Datu konexioa osatuta dagoela egiaztatu
+        if (!dataSocket.isConnected()) {
+            dataSocket.close();
+            throw new IOException("Datu konexioa TCP mailan ezin da konektatu");
+        }
+        
+        // SSL handshake bukatuta dagoela egiaztatu
+        SSLSession dataSession = dataSocket.getSession();
+        if (dataSession == null || !dataSession.isValid()) {
+            dataSocket.close();
+            throw new IOException("Datu konexioaren SSL handshake huts egin du");
+        }
+        
+        // Momentu bat itxaron datu konexioa guztiz prest egon dadin
+        try {
+            Thread.sleep(200);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+        
+        // STOR komandoa bidali (datu konexioa prest dagoenean)
+        sendCommand("STOR " + remoteFile);
+        String response = readResponse();
+        
+        if (!response.startsWith("150") && !response.startsWith("125")) {
+            dataSocket.close();
+            System.out.println("STOR huts egin du: " + response);
+            return false;
+        }
+        
+        // Datuak irakurri eta idatzi
+        try (OutputStream dataOutput = dataSocket.getOutputStream();
+             BufferedOutputStream bufferedDataOutput = new BufferedOutputStream(dataOutput);
+             BufferedInputStream bufferedInput = new BufferedInputStream(inputStream)) {
+            
+            byte[] buffer = new byte[8192];
+            int bytesRead;
+            while ((bytesRead = bufferedInput.read(buffer)) != -1) {
+                bufferedDataOutput.write(buffer, 0, bytesRead);
+            }
+            bufferedDataOutput.flush();
+        }
+        
+        dataSocket.close();
+        
+        // Zerbitzariaren erantzuna irakurri
+        response = readResponse();
+        System.out.println("Transferentzia: " + response);
+        
+        return response.startsWith("226");
+    }
+    
+    /**
      * Datu konexioa sortzen du, kontrol konexioaren TLS saioa berrerabiltzeko konfiguratuta
      */
     private SSLSocket createDataConnection(String host, int port) throws IOException {

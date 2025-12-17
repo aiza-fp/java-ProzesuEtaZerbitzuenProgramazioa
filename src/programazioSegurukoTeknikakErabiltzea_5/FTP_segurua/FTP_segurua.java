@@ -94,6 +94,16 @@ public class FTP_segurua {
             try (OutputStream outputStream = new BufferedOutputStream(new FileOutputStream(downloadFile))) {
                 if (ftpClient.retrieveFile(remoteFile, outputStream)) {
                     System.out.println("Fitxategia deskargatu da.");
+                    
+                    // Deskargatutako fitxategia igo izen desberdinarekin
+                    String uploadFile = remoteFile + "_upload";
+                    try (InputStream inputStream = new BufferedInputStream(new FileInputStream(downloadFile))) {
+                        if (ftpClient.storeFile(uploadFile, inputStream)) {
+                            System.out.println("Fitxategia igo da: " + uploadFile);
+                        } else {
+                            System.out.println("Fitxategia igotzean errorea.");
+                        }
+                    }
                 } else {
                     System.out.println("Fitxategia deskargatzean errorea.");
                 }
